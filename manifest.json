@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Axed Tab Bot",
+    "name": "Axed Tab Summarizer",
     "version": "1.0",
     "description": "Gather page contents from multiple tabs and query them with an AI chatbot.",
     "permissions": [

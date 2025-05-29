@@ -1,15 +1,9 @@
 // popup.js
 
-// Global variables for Firebase (will be provided by the Canvas environment)
-// These are placeholders and will be populated at runtime by the Canvas environment.
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? initialAuthToken : null;
 
-// Initialize Firebase (if needed, though for this extension, direct API calls are used)
-// For this specific extension, Firebase is not directly used for data persistence,
-// but the global variables are included as per instructions for all code generation.
-// If data persistence was explicitly requested, Firestore would be initialized here.
 
 document.addEventListener('DOMContentLoaded', async () => {
     const tabsList = document.getElementById('tabs-list');
@@ -17,31 +11,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     const chatHistory = document.getElementById('chat-history');
     const userQueryInput = document.getElementById('user-query');
     const sendButton = document.getElementById('send-button');
-    const errorMessageDiv = document.getElementById('error-message'); // New: Error message div
+    const errorMessageDiv = document.getElementById('error-message');
 
-    let availableTabs = []; // Stores all available tabs with their IDs and titles
-    let selectedTabIds = new Set(); // Stores IDs of currently selected tabs
-    let chatMessages = []; // Stores chat history for display
+    let availableTabs = [];
+    let selectedTabIds = new Set();
+    let chatMessages = [];
 
-    // Function to display an error message
     function showErrorMessage(message) {
         errorMessageDiv.textContent = message;
-        errorMessageDiv.style.display = 'block'; // Show the error message
+        errorMessageDiv.style.display = 'block';
     }
 
-    // Function to hide the error message
     function hideErrorMessage() {
         errorMessageDiv.textContent = '';
-        errorMessageDiv.style.display = 'none'; // Hide the error message
+        errorMessageDiv.style.display = 'none';
     }
 
-    // Function to fetch and display available tabs
     async function fetchAndDisplayTabs() {
-        hideErrorMessage(); // Clear any previous errors
+        hideErrorMessage();
         try {
             const tabs = await chrome.tabs.query({ currentWindow: true });
             availableTabs = tabs;
-            tabsList.innerHTML = ''; // Clear existing list
+            tabsList.innerHTML = '';
 
             const summarizableTabs = tabs.filter(tab =>
                 tab.url &&
@@ -109,8 +100,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         messageElement.className = `message ${type}-message`;
         messageElement.innerHTML = message;
         chatHistory.appendChild(messageElement);
-        chatHistory.scrollTop = chatHistory.scrollHeight; // Scroll to bottom
-        chatMessages.push({ text: message, type: type }); // Store for potential re-display or context
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+        chatMessages.push({ text: message, type: type });
     }
 
     function showLoadingIndicator() {
@@ -187,7 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        const prompt = `You are an AI assistant that can answer questions about web page content. Keep your response under 300 words.
+        const prompt = `You are an AI assistant that can answer questions about web page content. Keep your response under 250 words.
         Here is the content from the selected tabs:\n\n${pageContents}\n\nUser's question: ${userQuery}\n\nBased on the provided content, please answer the user's question.`;
 
         let chatHistoryForAPI = [{ role: "user", parts: [{ text: prompt }] }];
@@ -230,16 +221,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Event listener for the send button
     sendButton.addEventListener('click', sendQueryToAI);
 
-    // Event listener for Enter key in the input field
     userQueryInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             sendQueryToAI();
         }
     });
 
-    // Initial fetch and display of tabs when the popup opens
     fetchAndDisplayTabs();
 });

@@ -33,9 +33,9 @@ This extension can be loaded as an "unpacked" extension in Chromium-based browse
 5.  **Pin the extension (Optional but Recommended)**:
     * Once loaded, you'll see the "Axed Tab Bot" icon in your browser's toolbar. Click the puzzle piece icon (Extensions icon) and then pin the "Axed Tab Bot" to your toolbar for easy access.
 
-6.  **Create the API key configuration file**:
+6.  **IMPORTANT: Create the API key configuration file**:
     * In the extension's folder, create a file named `config.json`.
-    * Add your API key in the following format:
+    * Add your Google Gemini API key in the following format:
     ```json
     {
       "apiKey": "YOUR_API_KEY_HERE"
