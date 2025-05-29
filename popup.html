@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axed Tab Bot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="icons/icon128.png" alt="Bot Icon" class="bot-icon">
+            <h1>Axed Tab Bot</h1>
+        </header>
+
+        <section class="tab-selection">
+            <h2 class="section-title">Select Tabs to Analyze:</h2>
+            <div id="tabs-list" class="tabs-list">
+            </div>
+            <p id="selected-tabs-count" class="selected-tabs-count">0 tabs selected</p>
+            <div id="error-message" class="error-message"></div>
+        </section>
+
+        <section class="chatbot-section">
+            <div id="chat-history" class="chat-history">
+                <div class="message bot-message initial-message">
+                    <span class="emoji">👋</span> Hi! Select some tabs above and ask me anything about their content. I
+                    can summarize, compare, extract data, or answer questions!
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="user-query" placeholder="Ask me about the selected tabs...">
+                <button id="send-button" class="send-button">Send</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="popup.js"></script>
+    <script src="marked.min.js"></script>
+</body>
+
+</html>
